@@ -20,7 +20,7 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.elixirgym.elixir.presentation.viewmodels.LoginViewModel
-import com.elixirgym.elixir.presentation.screens.HomeScreen
+import com.elixirgym.elixir.presentation.screens.CalendarScreen
 
 class LoginScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -158,9 +158,9 @@ class LoginScreen : Screen {
                     onClick = {
                         viewModel.login(
                             onSuccess = {
-                                // Navigate to home screen and clear the back stack
+                                // Navigate to calendar screen and clear the back stack
                                 navigator.popAll()
-                                navigator.push(HomeScreen())
+                                navigator.push(CalendarScreen())
                             }
                         )
                     },
