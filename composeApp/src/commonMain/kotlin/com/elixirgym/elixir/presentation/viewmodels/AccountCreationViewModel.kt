@@ -2,10 +2,12 @@ package com.elixirgym.elixir.presentation.viewmodels
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
+import com.elixirgym.elixir.data.repository.ISessionManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 data class AccountCreationState(
     val name: String = "",
@@ -27,7 +29,9 @@ data class AccountCreationState(
     val idNumberError: String? = null
 )
 
-class AccountCreationViewModel : ScreenModel {
+class AccountCreationViewModel(
+    private val sessionManager: ISessionManager
+) : ScreenModel {
     private val _state = MutableStateFlow(AccountCreationState())
     val state: StateFlow<AccountCreationState> = _state.asStateFlow()
 
@@ -133,6 +137,18 @@ class AccountCreationViewModel : ScreenModel {
             kotlinx.coroutines.delay(1500)
 
             if (_state.value.otpCode == "123456" || _state.value.otpCode.length == 6) {
+                // Generate a mock authentication token
+                val mockToken = "mock_token_${Random.nextLong()}"
+                val mockUserId = "user_${Random.nextInt(1000, 9999)}"
+
+                // Save the session
+                sessionManager.saveSession(
+                    token = mockToken,
+                    userId = mockUserId,
+                    userEmail = _state.value.email,
+                    userName = _state.value.name
+                )
+
                 _state.value = _state.value.copy(isLoading = false)
                 onSuccess()
             } else {

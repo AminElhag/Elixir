@@ -1,0 +1,31 @@
+-- Table for storing authentication tokens
+CREATE TABLE IF NOT EXISTS AuthToken (
+    id INTEGER PRIMARY KEY NOT NULL DEFAULT 1,
+    token TEXT NOT NULL,
+    userId TEXT,
+    userEmail TEXT,
+    userName TEXT,
+    expiresAt INTEGER,
+    createdAt INTEGER NOT NULL
+);
+
+-- Get the current auth token
+getAuthToken:
+SELECT *
+FROM AuthToken
+WHERE id = 1;
+
+-- Save or update auth token
+saveAuthToken:
+INSERT OR REPLACE INTO AuthToken (id, token, userId, userEmail, userName, expiresAt, createdAt)
+VALUES (1, ?, ?, ?, ?, ?, ?);
+
+-- Clear auth token (logout)
+clearAuthToken:
+DELETE FROM AuthToken WHERE id = 1;
+
+-- Check if user is authenticated
+isAuthenticated:
+SELECT COUNT(*) > 0
+FROM AuthToken
+WHERE id = 1 AND token IS NOT NULL AND token != '';

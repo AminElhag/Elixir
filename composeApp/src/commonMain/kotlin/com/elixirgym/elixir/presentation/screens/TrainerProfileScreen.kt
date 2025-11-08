@@ -24,15 +24,18 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.AsyncImage
+import com.elixirgym.elixir.data.repository.ISessionManager
 import com.elixirgym.elixir.domain.model.Trainer
 import com.elixirgym.elixir.domain.model.TrainerComment
 import com.elixirgym.elixir.presentation.screens.auth.LoginScreen
+import org.koin.compose.koinInject
 
 data class TrainerProfileScreen(val trainer: Trainer) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
+        val sessionManager: ISessionManager = koinInject()
 
         Scaffold(
             topBar = {
@@ -57,8 +60,15 @@ data class TrainerProfileScreen(val trainer: Trainer) : Screen {
                 ) {
                     Button(
                         onClick = {
-                            // Navigate to login screen
-                            navigator.push(LoginScreen())
+                            // Check if user is authenticated
+                            if (sessionManager.isUserAuthenticated()) {
+                                // User is logged in, navigate to booking flow
+                                // TODO: Create and navigate to BookingScreen
+                                navigator.push(CalendarScreen())
+                            } else {
+                                // User is not logged in, navigate to login screen
+                                navigator.push(LoginScreen())
+                            }
                         },
                         modifier = Modifier
                             .fillMaxWidth()
