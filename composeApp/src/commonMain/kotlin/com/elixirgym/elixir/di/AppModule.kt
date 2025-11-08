@@ -8,6 +8,6 @@ import org.koin.dsl.module
 
 val appModule = module {
     // ViewModels / ScreenModels
-    factory<AccountCreationViewModel> { AccountCreationViewModel() }
-    factory<LoginViewModel> { LoginViewModel() }
+    factory<AccountCreationViewModel> { AccountCreationViewModel(get()) }
+    factory<LoginViewModel> { LoginViewModel(get()) }
 }

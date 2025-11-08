@@ -2,11 +2,13 @@ package com.elixirgym.elixir.presentation.viewmodels
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
+import com.elixirgym.elixir.data.repository.ISessionManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
+import kotlin.random.Random
 
 data class LoginState(
     val emailOrPhone: String = "",
@@ -17,7 +19,9 @@ data class LoginState(
     val passwordError: String? = null
 )
 
-class LoginViewModel : ScreenModel {
+class LoginViewModel(
+    private val sessionManager: ISessionManager
+) : ScreenModel {
     private val _state = MutableStateFlow(LoginState())
     val state: StateFlow<LoginState> = _state.asStateFlow()
 
@@ -87,6 +91,18 @@ class LoginViewModel : ScreenModel {
 
             // Simulating authentication - in production, this would call an API
             if (currentState.password.isNotEmpty()) {
+                // Generate a mock authentication token
+                val mockToken = "mock_token_${Random.nextLong()}"
+                val mockUserId = "user_${Random.nextInt(1000, 9999)}"
+
+                // Save the session
+                sessionManager.saveSession(
+                    token = mockToken,
+                    userId = mockUserId,
+                    userEmail = if (isValidEmail(currentState.emailOrPhone)) currentState.emailOrPhone else null,
+                    userName = currentState.emailOrPhone.substringBefore("@").takeIf { isValidEmail(currentState.emailOrPhone) }
+                )
+
                 _state.value = _state.value.copy(isLoading = false)
                 onSuccess()
             } else {
