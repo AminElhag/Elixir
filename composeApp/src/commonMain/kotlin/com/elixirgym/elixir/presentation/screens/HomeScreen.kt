@@ -1,6 +1,8 @@
 package com.elixirgym.elixir.presentation.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -9,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.elixirgym.elixir.presentation.screens.auth.SignUpScreen
 
 class HomeScreen : Screen {
     @Composable
@@ -43,6 +46,32 @@ class HomeScreen : Screen {
                 )
 
                 Spacer(modifier = Modifier.height(32.dp))
+
+                // Create Account Button (Primary CTA)
+                FilledTonalButton(
+                    onClick = { navigator.push(SignUpScreen()) },
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .height(56.dp),
+                    shape = MaterialTheme.shapes.medium
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.PersonAdd,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Create Account",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                HorizontalDivider(modifier = Modifier.fillMaxWidth(0.8f))
+
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
                     onClick = { navigator.push(TrainerListScreen()) }
