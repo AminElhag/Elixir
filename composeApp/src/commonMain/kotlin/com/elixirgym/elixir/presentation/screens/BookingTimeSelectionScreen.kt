@@ -230,7 +230,11 @@ data class BookingTimeSelectionScreen(val trainer: Trainer) : Screen {
                     TextButton(onClick = {
                         datePickerState.selectedDateMillis?.let { millis ->
                             val instant = Instant.fromEpochMilliseconds(millis)
-                            selectedDate = instant.toLocalDateTime(TimeZone.UTC).date
+                            val date = instant.toLocalDateTime(TimeZone.UTC).date
+                            // Only allow dates that are today or in the future
+                            if (date >= today) {
+                                selectedDate = date
+                            }
                         }
                         showDatePicker = false
                     }) {
@@ -245,11 +249,6 @@ data class BookingTimeSelectionScreen(val trainer: Trainer) : Screen {
             ) {
                 DatePicker(
                     state = datePickerState,
-                    dateValidator = { timestamp ->
-                        val date = Instant.fromEpochMilliseconds(timestamp)
-                            .toLocalDateTime(TimeZone.UTC).date
-                        date >= today
-                    },
                     modifier = Modifier.padding(16.dp)
                 )
             }
