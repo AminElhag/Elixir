@@ -14,6 +14,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.elixirgym.elixir.presentation.screens.auth.SignUpScreen
 
 class HomeScreen : Screen {
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
