@@ -2,6 +2,7 @@ package com.elixirgym.elixir.data
 
 import com.elixirgym.elixir.domain.model.Trainer
 import com.elixirgym.elixir.domain.model.TrainerComment
+import com.elixirgym.elixir.domain.model.TrainingType
 
 object SampleTrainerData {
     fun getTrainers(): List<Trainer> {
@@ -38,6 +39,11 @@ object SampleTrainerData {
                         rating = 5.0f,
                         date = "2024-09-22"
                     )
+                ),
+                trainingTypes = listOf(
+                    TrainingType(id = "pt1", name = "Personal Training", duration = 60),
+                    TrainingType(id = "st1", name = "Strength Training", duration = 75),
+                    TrainingType(id = "hiit1", name = "HIIT", duration = 45)
                 )
             ),
             Trainer(
@@ -64,6 +70,11 @@ object SampleTrainerData {
                         rating = 4.8f,
                         date = "2024-10-12"
                     )
+                ),
+                trainingTypes = listOf(
+                    TrainingType(id = "yoga1", name = "Vinyasa Yoga", duration = 60),
+                    TrainingType(id = "yoga2", name = "Hatha Yoga", duration = 75),
+                    TrainingType(id = "yoga3", name = "Meditation", duration = 30)
                 )
             ),
             Trainer(
@@ -90,6 +101,10 @@ object SampleTrainerData {
                         rating = 4.5f,
                         date = "2024-10-05"
                     )
+                ),
+                trainingTypes = listOf(
+                    TrainingType(id = "str1", name = "Powerlifting", duration = 90),
+                    TrainingType(id = "str2", name = "Strength Training", duration = 75)
                 )
             ),
             Trainer(
@@ -116,6 +131,11 @@ object SampleTrainerData {
                         rating = 4.8f,
                         date = "2024-09-28"
                     )
+                ),
+                trainingTypes = listOf(
+                    TrainingType(id = "cf1", name = "CrossFit WOD", duration = 60),
+                    TrainingType(id = "cf2", name = "HIIT", duration = 45),
+                    TrainingType(id = "cf3", name = "Functional Fitness", duration = 60)
                 )
             ),
             Trainer(
@@ -142,6 +162,9 @@ object SampleTrainerData {
                         rating = 4.8f,
                         date = "2024-10-14"
                     )
+                ),
+                trainingTypes = listOf(
+                    TrainingType(id = "swim1", name = "Swimming Lessons", duration = 60)
                 )
             )
         )
