@@ -28,8 +28,9 @@ dependencyResolutionManagement {
     }
 }
 
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-}
+// Commented out due to network restrictions in build environment
+// plugins {
+//     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+// }
 
 include(":composeApp")
