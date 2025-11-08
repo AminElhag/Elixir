@@ -14,7 +14,7 @@ import kotlin.time.ExperimentalTime
 object SampleBookingData {
     @OptIn(ExperimentalTime::class)
     fun getBookings(): List<Booking> {
-        val today = kotlin.time.Clock.System.todayIn(TimeZone.currentSystemDefault())
+        val today = kotlinx.datetime.Clock.System.todayIn(TimeZone.currentSystemDefault())
 
         return listOf(
             // Current booking (today)

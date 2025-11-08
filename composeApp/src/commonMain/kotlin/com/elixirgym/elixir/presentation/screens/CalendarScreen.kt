@@ -29,7 +29,6 @@ import com.elixirgym.elixir.data.SampleBookingData
 import com.elixirgym.elixir.domain.model.Booking
 import com.elixirgym.elixir.domain.model.BookingStatus
 import kotlinx.datetime.*
-import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 class CalendarScreen : Screen {
@@ -40,7 +39,7 @@ class CalendarScreen : Screen {
         val bookings = remember { SampleBookingData.getBookings() }
 
         var currentMonth by remember {
-            mutableStateOf(kotlin.time.Clock.System.todayIn(TimeZone.currentSystemDefault()))
+            mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault()))
         }
 
         var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
@@ -203,7 +202,7 @@ fun CalendarGrid(
     val lastDayOfMonth = LocalDate(
         currentMonth.year,
         currentMonth.month,
-        currentMonth.day
+        currentMonth.dayOfMonth
     )
 
     // Calculate the day of week for the first day (0 = Sunday, 6 = Saturday)
