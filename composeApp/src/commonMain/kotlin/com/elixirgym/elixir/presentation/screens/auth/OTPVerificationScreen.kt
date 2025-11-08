@@ -20,7 +20,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.elixirgym.elixir.presentation.screens.HomeScreen
+import com.elixirgym.elixir.presentation.screens.CalendarScreen
 import com.elixirgym.elixir.presentation.viewmodels.AccountCreationViewModel
 
 class OTPVerificationScreen : Screen {
@@ -179,9 +179,9 @@ class OTPVerificationScreen : Screen {
                 Button(
                     onClick = {
                         viewModel.verifyOtp {
-                            // On success, navigate to home and show success message
+                            // On success, navigate to calendar screen and show success message
                             navigator.popAll()
-                            navigator.push(HomeScreen())
+                            navigator.push(CalendarScreen())
                         }
                     },
                     enabled = state.otpCode.length == 6 && !state.isLoading,

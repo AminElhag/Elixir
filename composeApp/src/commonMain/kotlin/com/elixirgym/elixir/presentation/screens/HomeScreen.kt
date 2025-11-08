@@ -2,6 +2,7 @@ package com.elixirgym.elixir.presentation.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Login
 import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material3.*
@@ -107,9 +108,15 @@ class HomeScreen : Screen {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = { navigator.push(BookingsScreen()) }
+                    onClick = { navigator.push(CalendarScreen()) }
                 ) {
-                    Text("My Bookings")
+                    Icon(
+                        imageVector = Icons.Default.CalendarMonth,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("My Calendar")
                 }
             }
         }
