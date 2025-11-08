@@ -63,8 +63,7 @@ data class TrainerProfileScreen(val trainer: Trainer) : Screen {
                             // Check if user is authenticated
                             if (sessionManager.isUserAuthenticated()) {
                                 // User is logged in, navigate to booking flow
-                                // TODO: Create and navigate to BookingScreen
-                                navigator.push(CalendarScreen())
+                                navigator.push(BookingTimeSelectionScreen(trainer = trainer))
                             } else {
                                 // User is not logged in, navigate to login screen
                                 navigator.push(LoginScreen())

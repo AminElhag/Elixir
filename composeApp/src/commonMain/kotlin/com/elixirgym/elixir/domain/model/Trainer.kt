@@ -1,5 +1,11 @@
 package com.elixirgym.elixir.domain.model
 
+data class TrainingType(
+    val id: String,
+    val name: String,
+    val duration: Int  // Duration in minutes
+)
+
 data class Trainer(
     val id: String,
     val name: String,
@@ -7,7 +13,8 @@ data class Trainer(
     val shortDescription: String,
     val specialization: String,
     val rating: Float,
-    val comments: List<TrainerComment>
+    val comments: List<TrainerComment>,
+    val trainingTypes: List<TrainingType>
 )
 
 data class TrainerComment(
