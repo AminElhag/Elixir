@@ -52,10 +52,6 @@ kotlin {
             }
         }
 
-        val webMain by creating {
-            dependsOn(commonMain.get())
-        }
-
         androidMain {
             dependsOn(sqlDelightMain)
             dependencies {
@@ -155,7 +151,6 @@ kotlin {
         }
 
         jsMain {
-            dependsOn(webMain)
             dependsOn(sqlDelightMain)
             dependencies {
                 // Ktor JS
@@ -167,7 +162,6 @@ kotlin {
         }
 
         wasmJsMain {
-            dependsOn(webMain)
             dependencies {
                 // Ktor Wasm
                 implementation(libs.ktor.client.js)

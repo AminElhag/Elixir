@@ -109,7 +109,7 @@ class OTPVerificationScreen : Screen {
                     textStyle = MaterialTheme.typography.headlineMedium.copy(
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Bold,
-                        letterSpacing = 16.dp.value.toInt().let { androidx.compose.ui.unit.sp }
+                        letterSpacing = 16.sp
                     ),
                     placeholder = {
                         Text(
