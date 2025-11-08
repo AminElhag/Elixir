@@ -2,15 +2,19 @@ package com.elixirgym.elixir.data
 
 import com.elixirgym.elixir.domain.model.Booking
 import com.elixirgym.elixir.domain.model.BookingStatus
-import kotlinx.datetime.Clock
+import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.minus
+import kotlinx.datetime.plus
 import kotlinx.datetime.todayIn
+import kotlin.time.ExperimentalTime
 
 object SampleBookingData {
+    @OptIn(ExperimentalTime::class)
     fun getBookings(): List<Booking> {
-        val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
+        val today = kotlin.time.Clock.System.todayIn(TimeZone.currentSystemDefault())
 
         return listOf(
             // Current booking (today)
@@ -76,7 +80,7 @@ object SampleBookingData {
                 trainerId = "5",
                 trainerName = "Lisa Anderson",
                 trainerPhotoUrl = "https://randomuser.me/api/portraits/women/68.jpg",
-                date = today.minus(2, kotlinx.datetime.DateTimeUnit.DAY),
+                date = today.minus(DatePeriod(days = 2)),
                 time = LocalTime(15, 0),
                 status = BookingStatus.CANCELLED,
                 sessionType = "Pilates",
@@ -87,7 +91,7 @@ object SampleBookingData {
                 trainerId = "2",
                 trainerName = "Mike Chen",
                 trainerPhotoUrl = "https://randomuser.me/api/portraits/men/32.jpg",
-                date = today.plus(1, kotlinx.datetime.DateTimeUnit.DAY),
+                date = today.plus((DatePeriod(days = 1))),
                 time = LocalTime(18, 0),
                 status = BookingStatus.CANCELLED,
                 sessionType = "Boxing",

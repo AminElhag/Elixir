@@ -29,15 +29,18 @@ import com.elixirgym.elixir.data.SampleBookingData
 import com.elixirgym.elixir.domain.model.Booking
 import com.elixirgym.elixir.domain.model.BookingStatus
 import kotlinx.datetime.*
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 class CalendarScreen : Screen {
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val bookings = remember { SampleBookingData.getBookings() }
 
         var currentMonth by remember {
-            mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault()))
+            mutableStateOf(kotlin.time.Clock.System.todayIn(TimeZone.currentSystemDefault()))
         }
 
         var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
@@ -200,7 +203,7 @@ fun CalendarGrid(
     val lastDayOfMonth = LocalDate(
         currentMonth.year,
         currentMonth.month,
-        currentMonth.month.length(isLeapYear(currentMonth.year))
+        currentMonth.day
     )
 
     // Calculate the day of week for the first day (0 = Sunday, 6 = Saturday)
@@ -268,6 +271,7 @@ fun CalendarGrid(
     }
 }
 
+@OptIn(ExperimentalTime::class)
 @Composable
 fun CalendarDayCell(
     date: LocalDate,
@@ -431,3 +435,4 @@ sealed class CalendarDay {
 private fun isLeapYear(year: Int): Boolean {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
 }
+
