@@ -43,18 +43,34 @@ kotlin {
     }
 
     sourceSets {
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
+        val sqlDelightMain by creating {
+            dependsOn(commonMain.get())
+            dependencies {
+                // SQLDelight - only for platforms that support it
+                implementation(libs.sqldelight.runtime)
+                implementation(libs.sqldelight.coroutines)
+            }
+        }
 
-            // Ktor Android
-            implementation(libs.ktor.client.okhttp)
+        val webMain by creating {
+            dependsOn(commonMain.get())
+        }
 
-            // SQLDelight Android
-            implementation(libs.sqldelight.android)
+        androidMain {
+            dependsOn(sqlDelightMain)
+            dependencies {
+                implementation(compose.preview)
+                implementation(libs.androidx.activity.compose)
 
-            // Koin Android
-            implementation(libs.koin.android)
+                // Ktor Android
+                implementation(libs.ktor.client.okhttp)
+
+                // SQLDelight Android
+                implementation(libs.sqldelight.android)
+
+                // Koin Android
+                implementation(libs.koin.android)
+            }
         }
 
         commonMain.dependencies {
@@ -62,6 +78,7 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -85,10 +102,6 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.client.auth)
-
-            // SQLDelight
-            implementation(libs.sqldelight.runtime)
-            implementation(libs.sqldelight.coroutines)
 
             // Koin
             implementation(libs.koin.core)
@@ -116,36 +129,49 @@ kotlin {
             implementation(libs.kotlin.test)
         }
 
-        iosMain.dependencies {
-            // Ktor iOS
-            implementation(libs.ktor.client.darwin)
+        iosMain {
+            dependsOn(sqlDelightMain)
+            dependencies {
+                // Ktor iOS
+                implementation(libs.ktor.client.darwin)
 
-            // SQLDelight iOS
-            implementation(libs.sqldelight.native)
+                // SQLDelight iOS
+                implementation(libs.sqldelight.native)
+            }
         }
 
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutinesSwing)
+        jvmMain {
+            dependsOn(sqlDelightMain)
+            dependencies {
+                implementation(compose.desktop.currentOs)
+                implementation(libs.kotlinx.coroutinesSwing)
 
-            // Ktor JVM
-            implementation(libs.ktor.client.okhttp)
+                // Ktor JVM
+                implementation(libs.ktor.client.okhttp)
 
-            // SQLDelight JVM
-            implementation(libs.sqldelight.jvm)
+                // SQLDelight JVM
+                implementation(libs.sqldelight.jvm)
+            }
         }
 
-        jsMain.dependencies {
-            // Ktor JS
-            implementation(libs.ktor.client.js)
+        jsMain {
+            dependsOn(webMain)
+            dependsOn(sqlDelightMain)
+            dependencies {
+                // Ktor JS
+                implementation(libs.ktor.client.js)
 
-            // SQLDelight JS
-            implementation(libs.sqldelight.js)
+                // SQLDelight JS
+                implementation(libs.sqldelight.js)
+            }
         }
 
-        wasmJsMain.dependencies {
-            // Ktor Wasm
-            implementation(libs.ktor.client.js)
+        wasmJsMain {
+            dependsOn(webMain)
+            dependencies {
+                // Ktor Wasm
+                implementation(libs.ktor.client.js)
+            }
         }
     }
 }
