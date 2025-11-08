@@ -2,13 +2,7 @@ package com.elixirgym.elixir.data
 
 import com.elixirgym.elixir.domain.model.Booking
 import com.elixirgym.elixir.domain.model.BookingStatus
-import kotlinx.datetime.DatePeriod
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.minus
-import kotlinx.datetime.plus
-import kotlinx.datetime.todayIn
+import kotlinx.datetime.*
 import kotlin.time.ExperimentalTime
 
 object SampleBookingData {
