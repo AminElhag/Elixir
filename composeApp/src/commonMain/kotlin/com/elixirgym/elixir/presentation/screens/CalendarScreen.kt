@@ -26,10 +26,13 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.elixirgym.elixir.data.SampleBookingData
+import com.elixirgym.elixir.data.repository.ISessionManager
 import com.elixirgym.elixir.domain.model.Booking
 import com.elixirgym.elixir.domain.model.BookingStatus
 import com.elixirgym.elixir.presentation.components.BottomToolbar
+import com.elixirgym.elixir.presentation.screens.auth.LoginScreen
 import kotlinx.datetime.*
+import org.koin.compose.koinInject
 import kotlin.time.ExperimentalTime
 
 class CalendarScreen : Screen {
@@ -37,6 +40,16 @@ class CalendarScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
+        val sessionManager: ISessionManager = koinInject()
+
+        // Check authentication - if not authenticated, redirect to login
+        LaunchedEffect(Unit) {
+            if (!sessionManager.isUserAuthenticated()) {
+                navigator.popUntilRoot()
+                navigator.push(LoginScreen())
+            }
+        }
+
         val bookings = remember { SampleBookingData.getBookings() }
 
         var currentMonth by remember {

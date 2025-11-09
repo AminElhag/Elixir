@@ -22,7 +22,10 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.elixirgym.elixir.presentation.viewmodels.LoginViewModel
 import com.elixirgym.elixir.presentation.screens.CalendarScreen
 
-class LoginScreen : Screen {
+data class LoginScreen(
+    val returnToBooking: Boolean = false,
+    val returnDestination: Screen? = null
+) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
@@ -158,9 +161,19 @@ class LoginScreen : Screen {
                     onClick = {
                         viewModel.login(
                             onSuccess = {
-                                // Navigate to calendar screen and clear the back stack
-                                navigator.popAll()
-                                navigator.push(CalendarScreen())
+                                // Navigate based on context
+                                if (returnDestination != null) {
+                                    // Pop to the return destination (e.g., booking flow)
+                                    navigator.popUntilRoot()
+                                    navigator.push(returnDestination)
+                                } else if (returnToBooking) {
+                                    // Just pop back to previous screen (booking flow)
+                                    navigator.pop()
+                                } else {
+                                    // Default: navigate to calendar screen
+                                    navigator.popUntilRoot()
+                                    navigator.push(CalendarScreen())
+                                }
                             }
                         )
                     },

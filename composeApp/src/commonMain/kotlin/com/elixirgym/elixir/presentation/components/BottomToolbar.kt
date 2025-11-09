@@ -12,14 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.elixirgym.elixir.presentation.screens.HomeScreen
+import com.elixirgym.elixir.data.repository.ISessionManager
+import com.elixirgym.elixir.presentation.screens.CalendarScreen
 import com.elixirgym.elixir.presentation.screens.MarketScreen
 import com.elixirgym.elixir.presentation.screens.ProfileScreen
-import com.elixirgym.elixir.presentation.screens.TrainerListScreen
+import com.elixirgym.elixir.presentation.screens.auth.LoginScreen
+import org.koin.compose.koinInject
 
 @Composable
 fun BottomToolbar(modifier: Modifier = Modifier) {
     val navigator = LocalNavigator.currentOrThrow
+    val sessionManager: ISessionManager = koinInject()
 
     BottomAppBar(
         modifier = modifier,
@@ -52,9 +55,16 @@ fun BottomToolbar(modifier: Modifier = Modifier) {
                 }
             }
 
-            // Home Button (Center)
+            // My Schedule Button (Center)
             IconButton(
-                onClick = { navigator.push(HomeScreen()) },
+                onClick = {
+                    // Check if user is authenticated
+                    if (sessionManager.isUserAuthenticated()) {
+                        navigator.push(CalendarScreen())
+                    } else {
+                        navigator.push(LoginScreen())
+                    }
+                },
                 modifier = Modifier.weight(1f)
             ) {
                 Column(

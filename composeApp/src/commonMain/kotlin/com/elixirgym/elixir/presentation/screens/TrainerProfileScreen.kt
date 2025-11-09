@@ -73,7 +73,8 @@ data class TrainerProfileScreen(
                                 ))
                             } else {
                                 // User is not logged in, navigate to login screen
-                                navigator.push(LoginScreen())
+                                // Pass flag to return to booking after login
+                                navigator.push(LoginScreen(returnToBooking = true))
                             }
                         },
                         modifier = Modifier
