@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.elixirgym.elixir.presentation.screens.HomeScreen
+import com.elixirgym.elixir.presentation.screens.MarketScreen
 import com.elixirgym.elixir.presentation.screens.ProfileScreen
 import com.elixirgym.elixir.presentation.screens.TrainerListScreen
 
@@ -32,7 +33,7 @@ fun BottomToolbar(modifier: Modifier = Modifier) {
         ) {
             // Market Button (Left)
             IconButton(
-                onClick = { navigator.push(TrainerListScreen()) },
+                onClick = { navigator.push(MarketScreen()) },
                 modifier = Modifier.weight(1f)
             ) {
                 Column(
