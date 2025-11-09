@@ -62,7 +62,8 @@ fun BottomToolbar(modifier: Modifier = Modifier) {
                     if (sessionManager.isUserAuthenticated()) {
                         navigator.push(CalendarScreen())
                     } else {
-                        navigator.push(LoginScreen())
+                        // After login, navigate to CalendarScreen
+                        navigator.push(LoginScreen(returnDestination = CalendarScreen()))
                     }
                 },
                 modifier = Modifier.weight(1f)

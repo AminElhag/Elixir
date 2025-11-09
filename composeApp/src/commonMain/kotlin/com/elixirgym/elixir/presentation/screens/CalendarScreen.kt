@@ -41,13 +41,28 @@ class CalendarScreen : Screen {
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val sessionManager: ISessionManager = koinInject()
+        var isAuthenticated by remember { mutableStateOf<Boolean?>(null) }
 
         // Check authentication - if not authenticated, redirect to login
         LaunchedEffect(Unit) {
-            if (!sessionManager.isUserAuthenticated()) {
+            val authenticated = sessionManager.isUserAuthenticated()
+            if (!authenticated) {
                 navigator.popUntilRoot()
-                navigator.push(LoginScreen())
+                navigator.push(LoginScreen(returnDestination = CalendarScreen()))
+            } else {
+                isAuthenticated = true
             }
+        }
+
+        // Show loading while checking authentication
+        if (isAuthenticated == null) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+            return
         }
 
         val bookings = remember { SampleBookingData.getBookings() }
