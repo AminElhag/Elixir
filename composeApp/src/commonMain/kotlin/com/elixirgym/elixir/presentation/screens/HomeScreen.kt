@@ -2,7 +2,6 @@ package com.elixirgym.elixir.presentation.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Login
 import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material3.*
@@ -13,7 +12,6 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.elixirgym.elixir.presentation.components.BottomToolbar
 import com.elixirgym.elixir.presentation.screens.auth.LoginScreen
 import com.elixirgym.elixir.presentation.screens.auth.SignUpScreen
 
@@ -28,9 +26,6 @@ class HomeScreen : Screen {
                 TopAppBar(
                     title = { Text("Elixir Gym") }
                 )
-            },
-            bottomBar = {
-                BottomToolbar()
             }
         ) { paddingValues ->
             Column(
@@ -107,20 +102,6 @@ class HomeScreen : Screen {
                     onClick = { navigator.push(TrainerListScreen()) }
                 ) {
                     Text("Browse Trainers")
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Button(
-                    onClick = { navigator.push(CalendarScreen()) }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.CalendarMonth,
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text("My Calendar")
                 }
             }
         }
