@@ -207,10 +207,20 @@ fun CalendarGrid(
 
     // Get the first day of the month
     val firstDayOfMonth = LocalDate(currentMonth.year, currentMonth.month, 1)
+
+    // Calculate the number of days in the month
+    val daysInMonth = when (currentMonth.month) {
+        Month.JANUARY, Month.MARCH, Month.MAY, Month.JULY,
+        Month.AUGUST, Month.OCTOBER, Month.DECEMBER -> 31
+        Month.APRIL, Month.JUNE, Month.SEPTEMBER, Month.NOVEMBER -> 30
+        Month.FEBRUARY -> if (isLeapYear(currentMonth.year)) 29 else 28
+        else -> 31
+    }
+
     val lastDayOfMonth = LocalDate(
         currentMonth.year,
         currentMonth.month,
-        currentMonth.dayOfMonth
+        daysInMonth
     )
 
     // Calculate the day of week for the first day (0 = Sunday, 6 = Saturday)
