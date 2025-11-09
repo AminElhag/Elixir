@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.elixirgym.elixir.presentation.components.BottomToolbar
 import com.elixirgym.elixir.presentation.screens.auth.LoginScreen
 import com.elixirgym.elixir.presentation.screens.auth.SignUpScreen
 
@@ -27,6 +28,9 @@ class HomeScreen : Screen {
                 TopAppBar(
                     title = { Text("Elixir Gym") }
                 )
+            },
+            bottomBar = {
+                BottomToolbar()
             }
         ) { paddingValues ->
             Column(
