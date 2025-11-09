@@ -28,9 +28,13 @@ import com.elixirgym.elixir.data.repository.ISessionManager
 import com.elixirgym.elixir.domain.model.Trainer
 import com.elixirgym.elixir.domain.model.TrainerComment
 import com.elixirgym.elixir.presentation.screens.auth.LoginScreen
+import kotlinx.datetime.LocalDate
 import org.koin.compose.koinInject
 
-data class TrainerProfileScreen(val trainer: Trainer) : Screen {
+data class TrainerProfileScreen(
+    val trainer: Trainer,
+    val preSelectedDate: LocalDate? = null
+) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
@@ -63,7 +67,10 @@ data class TrainerProfileScreen(val trainer: Trainer) : Screen {
                             // Check if user is authenticated
                             if (sessionManager.isUserAuthenticated()) {
                                 // User is logged in, navigate to booking flow
-                                navigator.push(BookingTimeSelectionScreen(trainer = trainer))
+                                navigator.push(BookingTimeSelectionScreen(
+                                    trainer = trainer,
+                                    preSelectedDate = preSelectedDate
+                                ))
                             } else {
                                 // User is not logged in, navigate to login screen
                                 navigator.push(LoginScreen())

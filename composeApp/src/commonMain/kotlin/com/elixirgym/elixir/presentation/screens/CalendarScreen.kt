@@ -102,8 +102,12 @@ class CalendarScreen : Screen {
                     val dateBookings = bookings.filter { it.date == date }
                     if (dateBookings.isNotEmpty()) {
                         BookingsList(
+                            date = date,
                             bookings = dateBookings,
-                            onDismiss = { selectedDate = null }
+                            onDismiss = { selectedDate = null },
+                            onAddBooking = {
+                                navigator.push(TrainerListScreen(preSelectedDate = date))
+                            }
                         )
                     }
                 }
@@ -333,8 +337,10 @@ fun CalendarDayCell(
 
 @Composable
 fun BookingsList(
+    date: LocalDate,
     bookings: List<Booking>,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    onAddBooking: () -> Unit
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -351,11 +357,18 @@ fun BookingsList(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = "Bookings",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                Column {
+                    Text(
+                        text = "Bookings",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "${date.month.name.lowercase().replaceFirstChar { it.uppercase() }} ${date.dayOfMonth}, ${date.year}",
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
                 TextButton(onClick = onDismiss) {
                     Text("Close")
                 }
@@ -370,6 +383,18 @@ fun BookingsList(
                     HorizontalDivider()
                     Spacer(modifier = Modifier.height(8.dp))
                 }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Button(
+                onClick = onAddBooking,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
+            ) {
+                Text("Add New Booking")
             }
         }
     }
