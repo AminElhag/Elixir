@@ -218,8 +218,9 @@ data class BookingTypeSelectionScreen(
                             // Create booking and navigate back to calendar
                             // TODO: Save booking to database/repository
                             showConfirmationDialog = false
-                            // Navigate back to home or calendar
-                            navigator.popUntil { it is TrainerListScreen }
+                            // Navigate to calendar screen to view the booking
+                            navigator.popUntilRoot()
+                            navigator.push(CalendarScreen())
                         }
                     ) {
                         Text("Confirm")

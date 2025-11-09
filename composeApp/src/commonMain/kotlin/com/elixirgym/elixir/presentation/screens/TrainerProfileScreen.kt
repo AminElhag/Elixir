@@ -73,8 +73,13 @@ data class TrainerProfileScreen(
                                 ))
                             } else {
                                 // User is not logged in, navigate to login screen
-                                // Pass flag to return to booking after login
-                                navigator.push(LoginScreen(returnToBooking = true))
+                                // After login, navigate directly to booking time selection
+                                navigator.push(LoginScreen(
+                                    returnDestination = BookingTimeSelectionScreen(
+                                        trainer = trainer,
+                                        preSelectedDate = preSelectedDate
+                                    )
+                                ))
                             }
                         },
                         modifier = Modifier
