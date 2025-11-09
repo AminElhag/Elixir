@@ -72,9 +72,9 @@ class MarketScreen : Screen {
                 ) {
                     items(filteredProducts) { project ->
                         ProductCard(
-                            project = project,
+                            product = project,
                             onClick = {
-                                navigator.push(ProductDetailsScreen(product = product))
+                                navigator.push(ProductDetailsScreen(product = project))
                             }
                         )
                     }
@@ -89,97 +89,90 @@ fun CategoryFilterSection(
     selectedCategory: ProductCategory?,
     onCategorySelected: (ProductCategory?) -> Unit
 ) {
-    LazyColumn(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                FilterChip(
-                    selected = selectedCategory == null,
-                    onClick = { onCategorySelected(null) },
-                    label = { Text("All") }
-                )
-                FilterChip(
-                    selected = selectedCategory == ProductCategory.PILATES,
-                    onClick = {
-                        onCategorySelected(
-                            if (selectedCategory == ProductCategory.PILATES) null
-                            else ProductCategory.PILATES
-                        )
-                    },
-                    label = { Text("Pilates") }
-                )
-                FilterChip(
-                    selected = selectedCategory == ProductCategory.YOGA,
-                    onClick = {
-                        onCategorySelected(
-                            if (selectedCategory == ProductCategory.YOGA) null
-                            else ProductCategory.YOGA
-                        )
-                    },
-                    label = { Text("Yoga") }
-                )
-            }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            FilterChip(
+                selected = selectedCategory == null,
+                onClick = { onCategorySelected(null) },
+                label = { Text("All") }
+            )
+            FilterChip(
+                selected = selectedCategory == ProductCategory.PILATES,
+                onClick = {
+                    onCategorySelected(
+                        if (selectedCategory == ProductCategory.PILATES) null
+                        else ProductCategory.PILATES
+                    )
+                },
+                label = { Text("Pilates") }
+            )
+            FilterChip(
+                selected = selectedCategory == ProductCategory.YOGA,
+                onClick = {
+                    onCategorySelected(
+                        if (selectedCategory == ProductCategory.YOGA) null
+                        else ProductCategory.YOGA
+                    )
+                },
+                label = { Text("Yoga") }
+            )
         }
-        item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                FilterChip(
-                    selected = selectedCategory == ProductCategory.PERSONAL_TRAINING,
-                    onClick = {
-                        onCategorySelected(
-                            if (selectedCategory == ProductCategory.PERSONAL_TRAINING) null
-                            else ProductCategory.PERSONAL_TRAINING
-                        )
-                    },
-                    label = { Text("Personal Training") }
-                )
-                FilterChip(
-                    selected = selectedCategory == ProductCategory.GROUP_TRAINING,
-                    onClick = {
-                        onCategorySelected(
-                            if (selectedCategory == ProductCategory.GROUP_TRAINING) null
-                            else ProductCategory.GROUP_TRAINING
-                        )
-                    },
-                    label = { Text("Group Training") }
-                )
-            }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            FilterChip(
+                selected = selectedCategory == ProductCategory.PERSONAL_TRAINING,
+                onClick = {
+                    onCategorySelected(
+                        if (selectedCategory == ProductCategory.PERSONAL_TRAINING) null
+                        else ProductCategory.PERSONAL_TRAINING
+                    )
+                },
+                label = { Text("Personal Training") }
+            )
+            FilterChip(
+                selected = selectedCategory == ProductCategory.GROUP_TRAINING,
+                onClick = {
+                    onCategorySelected(
+                        if (selectedCategory == ProductCategory.GROUP_TRAINING) null
+                        else ProductCategory.GROUP_TRAINING
+                    )
+                },
+                label = { Text("Group Training") }
+            )
         }
-        item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                FilterChip(
-                    selected = selectedCategory == ProductCategory.NUTRITION,
-                    onClick = {
-                        onCategorySelected(
-                            if (selectedCategory == ProductCategory.NUTRITION) null
-                            else ProductCategory.NUTRITION
-                        )
-                    },
-                    label = { Text("Nutrition") }
-                )
-                FilterChip(
-                    selected = selectedCategory == ProductCategory.WELLNESS,
-                    onClick = {
-                        onCategorySelected(
-                            if (selectedCategory == ProductCategory.WELLNESS) null
-                            else ProductCategory.WELLNESS
-                        )
-                    },
-                    label = { Text("Wellness") }
-                )
-            }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            FilterChip(
+                selected = selectedCategory == ProductCategory.NUTRITION,
+                onClick = {
+                    onCategorySelected(
+                        if (selectedCategory == ProductCategory.NUTRITION) null
+                        else ProductCategory.NUTRITION
+                    )
+                },
+                label = { Text("Nutrition") }
+            )
+            FilterChip(
+                selected = selectedCategory == ProductCategory.WELLNESS,
+                onClick = {
+                    onCategorySelected(
+                        if (selectedCategory == ProductCategory.WELLNESS) null
+                        else ProductCategory.WELLNESS
+                    )
+                },
+                label = { Text("Wellness") }
+            )
         }
     }
 }
