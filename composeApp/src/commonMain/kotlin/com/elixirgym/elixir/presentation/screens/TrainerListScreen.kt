@@ -21,8 +21,11 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.AsyncImage
 import com.elixirgym.elixir.data.SampleTrainerData
+import kotlinx.datetime.LocalDate
 
-class TrainerListScreen : Screen {
+data class TrainerListScreen(
+    val preSelectedDate: LocalDate? = null
+) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
@@ -55,7 +58,10 @@ class TrainerListScreen : Screen {
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            navigator.push(TrainerProfileScreen(trainer))
+                            navigator.push(TrainerProfileScreen(
+                                trainer = trainer,
+                                preSelectedDate = preSelectedDate
+                            ))
                         },
                         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                     ) {

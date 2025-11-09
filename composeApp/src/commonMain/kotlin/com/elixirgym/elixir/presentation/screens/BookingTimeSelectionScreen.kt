@@ -25,12 +25,15 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.elixirgym.elixir.domain.model.Trainer
 import kotlinx.datetime.*
 
-data class BookingTimeSelectionScreen(val trainer: Trainer) : Screen {
+data class BookingTimeSelectionScreen(
+    val trainer: Trainer,
+    val preSelectedDate: LocalDate? = null
+) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
+        var selectedDate by remember { mutableStateOf<LocalDate?>(preSelectedDate) }
         var selectedTime by remember { mutableStateOf<LocalTime?>(null) }
         var showDatePicker by remember { mutableStateOf(false) }
 
