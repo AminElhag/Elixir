@@ -62,11 +62,11 @@ fun BottomToolbar(modifier: Modifier = Modifier) {
                 ) {
                     Icon(
                         imageVector = Icons.Default.Home,
-                        contentDescription = "Home",
+                        contentDescription = "My Schedule",
                         tint = MaterialTheme.colorScheme.primary
                     )
                     Text(
-                        text = "Home",
+                        text = "My Schedule",
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurface
                     )
