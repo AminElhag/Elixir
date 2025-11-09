@@ -21,7 +21,6 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.AsyncImage
 import com.elixirgym.elixir.data.SampleTrainerData
-import com.elixirgym.elixir.presentation.components.BottomToolbar
 import kotlinx.datetime.LocalDate
 
 data class TrainerListScreen(
@@ -46,9 +45,6 @@ data class TrainerListScreen(
                         }
                     }
                 )
-            },
-            bottomBar = {
-                BottomToolbar()
             }
         ) { paddingValues ->
             LazyColumn(
