@@ -28,6 +28,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.elixirgym.elixir.data.SampleBookingData
 import com.elixirgym.elixir.domain.model.Booking
 import com.elixirgym.elixir.domain.model.BookingStatus
+import com.elixirgym.elixir.presentation.components.BottomToolbar
 import kotlinx.datetime.*
 import kotlin.time.ExperimentalTime
 
@@ -53,6 +54,9 @@ class CalendarScreen : Screen {
                         titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 )
+            },
+            bottomBar = {
+                BottomToolbar()
             }
         ) { paddingValues ->
             Column(
