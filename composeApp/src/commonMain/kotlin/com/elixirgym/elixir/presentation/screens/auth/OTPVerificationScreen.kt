@@ -179,8 +179,8 @@ class OTPVerificationScreen : Screen {
                 Button(
                     onClick = {
                         viewModel.verifyOtp {
-                            // On success, navigate to calendar screen and show success message
-                            navigator.popAll()
+                            // On success, navigate to calendar screen
+                            navigator.popUntilRoot()
                             navigator.push(CalendarScreen())
                         }
                     },
