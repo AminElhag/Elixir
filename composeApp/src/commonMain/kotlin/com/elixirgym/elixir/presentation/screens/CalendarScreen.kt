@@ -7,10 +7,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
@@ -93,7 +91,6 @@ class CalendarScreen : Screen {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .verticalScroll(rememberScrollState())
                     .padding(16.dp)
             ) {
                 // Calendar Legend
@@ -276,16 +273,14 @@ fun CalendarGrid(
 
     Column {
         // Days of week header
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(7),
+        Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            items(daysOfWeek) { day ->
+            daysOfWeek.forEach { day ->
                 Text(
                     text = day,
-                    modifier = Modifier.padding(8.dp),
+                    modifier = Modifier.weight(1f).padding(8.dp),
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
                     fontSize = 12.sp,
@@ -294,10 +289,14 @@ fun CalendarGrid(
             }
         }
 
+        Spacer(modifier = Modifier.height(4.dp))
+
         // Calendar days grid
         LazyVerticalGrid(
             columns = GridCells.Fixed(7),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(336.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
