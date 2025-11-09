@@ -19,11 +19,11 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.AsyncImage
-import com.elixirgym.elixir.domain.model.Project
+import com.elixirgym.elixir.domain.model.Product
 import com.elixirgym.elixir.presentation.components.BottomToolbar
 
-data class ProjectDetailsScreen(
-    val project: Project
+data class ProductDetailsScreen(
+    val product: Product
 ) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
@@ -35,7 +35,7 @@ data class ProjectDetailsScreen(
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Project Details") },
+                    title = { Text("Product Details") },
                     navigationIcon = {
                         IconButton(onClick = { navigator.pop() }) {
                             Icon(
@@ -58,8 +58,8 @@ data class ProjectDetailsScreen(
                 // Project Image
                 item {
                     AsyncImage(
-                        model = project.imageUrl,
-                        contentDescription = project.name,
+                        model = product.imageUrl,
+                        contentDescription = product.name,
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(300.dp),
@@ -75,7 +75,7 @@ data class ProjectDetailsScreen(
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = project.name,
+                            text = product.name,
                             style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.Bold
                         )
@@ -88,7 +88,7 @@ data class ProjectDetailsScreen(
                             shape = RoundedCornerShape(16.dp)
                         ) {
                             Text(
-                                text = project.category.name.replace("_", " "),
+                                text = product.category.name.replace("_", " "),
                                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
                                 style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -118,7 +118,7 @@ data class ProjectDetailsScreen(
                                         color = MaterialTheme.colorScheme.onPrimaryContainer
                                     )
                                     Text(
-                                        text = "${String.format("%.2f", project.price)} ${project.currency}",
+                                        text = "${String.format("%.2f", product.price)} ${product.currency}",
                                         style = MaterialTheme.typography.headlineSmall,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -133,7 +133,7 @@ data class ProjectDetailsScreen(
                                         color = MaterialTheme.colorScheme.onPrimaryContainer
                                     )
                                     Text(
-                                        text = "${String.format("%.2f", project.price / project.numberOfClasses)} ${project.currency}",
+                                        text = "${String.format("%.2f", product.price / product.numberOfClasses)} ${product.currency}",
                                         style = MaterialTheme.typography.bodyLarge,
                                         fontWeight = FontWeight.SemiBold,
                                         color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -158,7 +158,7 @@ data class ProjectDetailsScreen(
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = project.description,
+                            text = product.description,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -182,30 +182,30 @@ data class ProjectDetailsScreen(
                         PackageDetailItem(
                             icon = Icons.Default.Event,
                             label = "Number of Classes",
-                            value = "${project.numberOfClasses} sessions"
+                            value = "${product.numberOfClasses} sessions"
                         )
                         PackageDetailItem(
                             icon = Icons.Default.AccessTime,
                             label = "Duration per Class",
-                            value = "${project.durationPerClass} minutes"
+                            value = "${product.durationPerClass} minutes"
                         )
                         PackageDetailItem(
                             icon = Icons.Default.CalendarMonth,
                             label = "Validity Period",
-                            value = "${project.validityPeriod} days from purchase"
+                            value = "${product.validityPeriod} days from purchase"
                         )
-                        if (project.trainer != null) {
+                        if (product.trainer != null) {
                             PackageDetailItem(
                                 icon = Icons.Default.Person,
                                 label = "Trainer",
-                                value = project.trainer
+                                value = product.trainer
                             )
                         }
                     }
                 }
 
                 // Features
-                if (project.features.isNotEmpty()) {
+                if (product.features.isNotEmpty()) {
                     item {
                         Column(
                             modifier = Modifier
@@ -221,7 +221,7 @@ data class ProjectDetailsScreen(
                         }
                     }
 
-                    items(project.features) { feature ->
+                    items(product.features) { feature ->
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -264,7 +264,7 @@ data class ProjectDetailsScreen(
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Purchase Project",
+                                text = "Purchase Product",
                                 style = MaterialTheme.typography.titleMedium
                             )
                         }
@@ -281,7 +281,7 @@ data class ProjectDetailsScreen(
         // Purchase Confirmation Dialog
         if (showPurchaseDialog) {
             PurchaseConfirmationDialog(
-                project = project,
+                product = product,
                 onConfirm = {
                     showPurchaseDialog = false
                     showSuccessDialog = true
@@ -295,7 +295,7 @@ data class ProjectDetailsScreen(
         // Success Dialog
         if (showSuccessDialog) {
             PurchaseSuccessDialog(
-                project = project,
+                product = product,
                 onDismiss = {
                     showSuccessDialog = false
                     // Navigate to calendar or bookings screen
@@ -342,7 +342,7 @@ fun PackageDetailItem(
 
 @Composable
 fun PurchaseConfirmationDialog(
-    project: Project,
+    product: Product,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -367,20 +367,20 @@ fun PurchaseConfirmationDialog(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = project.name,
+                    text = product.name,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "${String.format("%.2f", project.price)} ${project.currency}",
+                    text = "${String.format("%.2f", product.price)} ${product.currency}",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "This includes ${project.numberOfClasses} classes valid for ${project.validityPeriod} days.",
+                    text = "This includes ${product.numberOfClasses} classes valid for ${product.validityPeriod} days.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -401,7 +401,7 @@ fun PurchaseConfirmationDialog(
 
 @Composable
 fun PurchaseSuccessDialog(
-    project: Project,
+    product: Product,
     onDismiss: () -> Unit
 ) {
     AlertDialog(
@@ -425,7 +425,7 @@ fun PurchaseSuccessDialog(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = project.name,
+                    text = product.name,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )

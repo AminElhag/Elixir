@@ -20,9 +20,9 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.AsyncImage
-import com.elixirgym.elixir.data.SampleProjectData
-import com.elixirgym.elixir.domain.model.Project
-import com.elixirgym.elixir.domain.model.ProjectCategory
+import com.elixirgym.elixir.data.SampleProductData
+import com.elixirgym.elixir.domain.model.Product
+import com.elixirgym.elixir.domain.model.ProductCategory
 import com.elixirgym.elixir.presentation.components.BottomToolbar
 
 class MarketScreen : Screen {
@@ -30,13 +30,13 @@ class MarketScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val projects = SampleProjectData.getProjects()
-        var selectedCategory by remember { mutableStateOf<ProjectCategory?>(null) }
+        val products = SampleProductData.getProducts()
+        var selectedCategory by remember { mutableStateOf<ProductCategory?>(null) }
 
-        val filteredProjects = if (selectedCategory != null) {
-            projects.filter { it.category == selectedCategory }
+        val filteredProducts = if (selectedCategory != null) {
+            products.filter { it.category == selectedCategory }
         } else {
-            projects
+            products
         }
 
         Scaffold(
@@ -70,11 +70,11 @@ class MarketScreen : Screen {
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    items(filteredProjects) { project ->
-                        ProjectCard(
+                    items(filteredProducts) { project ->
+                        ProductCard(
                             project = project,
                             onClick = {
-                                navigator.push(ProjectDetailsScreen(project = project))
+                                navigator.push(ProductDetailsScreen(product = product))
                             }
                         )
                     }
@@ -86,8 +86,8 @@ class MarketScreen : Screen {
 
 @Composable
 fun CategoryFilterSection(
-    selectedCategory: ProjectCategory?,
-    onCategorySelected: (ProjectCategory?) -> Unit
+    selectedCategory: ProductCategory?,
+    onCategorySelected: (ProductCategory?) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -106,21 +106,21 @@ fun CategoryFilterSection(
                     label = { Text("All") }
                 )
                 FilterChip(
-                    selected = selectedCategory == ProjectCategory.PILATES,
+                    selected = selectedCategory == ProductCategory.PILATES,
                     onClick = {
                         onCategorySelected(
-                            if (selectedCategory == ProjectCategory.PILATES) null
-                            else ProjectCategory.PILATES
+                            if (selectedCategory == ProductCategory.PILATES) null
+                            else ProductCategory.PILATES
                         )
                     },
                     label = { Text("Pilates") }
                 )
                 FilterChip(
-                    selected = selectedCategory == ProjectCategory.YOGA,
+                    selected = selectedCategory == ProductCategory.YOGA,
                     onClick = {
                         onCategorySelected(
-                            if (selectedCategory == ProjectCategory.YOGA) null
-                            else ProjectCategory.YOGA
+                            if (selectedCategory == ProductCategory.YOGA) null
+                            else ProductCategory.YOGA
                         )
                     },
                     label = { Text("Yoga") }
@@ -133,21 +133,21 @@ fun CategoryFilterSection(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 FilterChip(
-                    selected = selectedCategory == ProjectCategory.PERSONAL_TRAINING,
+                    selected = selectedCategory == ProductCategory.PERSONAL_TRAINING,
                     onClick = {
                         onCategorySelected(
-                            if (selectedCategory == ProjectCategory.PERSONAL_TRAINING) null
-                            else ProjectCategory.PERSONAL_TRAINING
+                            if (selectedCategory == ProductCategory.PERSONAL_TRAINING) null
+                            else ProductCategory.PERSONAL_TRAINING
                         )
                     },
                     label = { Text("Personal Training") }
                 )
                 FilterChip(
-                    selected = selectedCategory == ProjectCategory.GROUP_TRAINING,
+                    selected = selectedCategory == ProductCategory.GROUP_TRAINING,
                     onClick = {
                         onCategorySelected(
-                            if (selectedCategory == ProjectCategory.GROUP_TRAINING) null
-                            else ProjectCategory.GROUP_TRAINING
+                            if (selectedCategory == ProductCategory.GROUP_TRAINING) null
+                            else ProductCategory.GROUP_TRAINING
                         )
                     },
                     label = { Text("Group Training") }
@@ -160,21 +160,21 @@ fun CategoryFilterSection(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 FilterChip(
-                    selected = selectedCategory == ProjectCategory.NUTRITION,
+                    selected = selectedCategory == ProductCategory.NUTRITION,
                     onClick = {
                         onCategorySelected(
-                            if (selectedCategory == ProjectCategory.NUTRITION) null
-                            else ProjectCategory.NUTRITION
+                            if (selectedCategory == ProductCategory.NUTRITION) null
+                            else ProductCategory.NUTRITION
                         )
                     },
                     label = { Text("Nutrition") }
                 )
                 FilterChip(
-                    selected = selectedCategory == ProjectCategory.WELLNESS,
+                    selected = selectedCategory == ProductCategory.WELLNESS,
                     onClick = {
                         onCategorySelected(
-                            if (selectedCategory == ProjectCategory.WELLNESS) null
-                            else ProjectCategory.WELLNESS
+                            if (selectedCategory == ProductCategory.WELLNESS) null
+                            else ProductCategory.WELLNESS
                         )
                     },
                     label = { Text("Wellness") }
@@ -185,8 +185,8 @@ fun CategoryFilterSection(
 }
 
 @Composable
-fun ProjectCard(
-    project: Project,
+fun ProductCard(
+    product: Product,
     onClick: () -> Unit
 ) {
     Card(
@@ -199,8 +199,8 @@ fun ProjectCard(
         ) {
             // Project Image
             AsyncImage(
-                model = project.imageUrl,
-                contentDescription = project.name,
+                model = product.imageUrl,
+                contentDescription = product.name,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
@@ -216,7 +216,7 @@ fun ProjectCard(
             ) {
                 // Project Name
                 Text(
-                    text = project.name,
+                    text = product.name,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
@@ -225,7 +225,7 @@ fun ProjectCard(
 
                 // Project Description
                 Text(
-                    text = project.description,
+                    text = product.description,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2
@@ -241,19 +241,19 @@ fun ProjectCard(
                     // Number of Classes
                     InfoItem(
                         icon = Icons.Default.Event,
-                        text = "${project.numberOfClasses} Classes"
+                        text = "${product.numberOfClasses} Classes"
                     )
 
                     // Duration per Class
                     InfoItem(
                         icon = Icons.Default.AccessTime,
-                        text = "${project.durationPerClass} min"
+                        text = "${product.durationPerClass} min"
                     )
 
                     // Validity Period
                     InfoItem(
                         icon = Icons.Default.CalendarMonth,
-                        text = "${project.validityPeriod} days"
+                        text = "${product.validityPeriod} days"
                     )
                 }
 
@@ -276,7 +276,7 @@ fun ProjectCard(
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            text = "${String.format("%.2f", project.price)} ${project.currency}",
+                            text = "${String.format("%.2f", product.price)} ${product.currency}",
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary

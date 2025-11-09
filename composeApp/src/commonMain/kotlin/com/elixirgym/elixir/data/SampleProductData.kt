@@ -1,12 +1,12 @@
 package com.elixirgym.elixir.data
 
-import com.elixirgym.elixir.domain.model.Project
-import com.elixirgym.elixir.domain.model.ProjectCategory
+import com.elixirgym.elixir.domain.model.Product
+import com.elixirgym.elixir.domain.model.ProductCategory
 
-object SampleProjectData {
-    fun getProjects(): List<Project> {
+object SampleProductData {
+    fun getProducts(): List<Product> {
         return listOf(
-            Project(
+            Product(
                 id = "proj_001",
                 name = "PT Pilates - 24 Classes",
                 description = "Premium Pilates training package with personalized attention. Perfect for improving core strength, flexibility, and posture. Includes 24 one-on-one sessions with certified Pilates instructors.",
@@ -14,7 +14,7 @@ object SampleProjectData {
                 price = 6072.00,
                 currency = "SAR",
                 numberOfClasses = 24,
-                category = ProjectCategory.PILATES,
+                category = ProductCategory.PILATES,
                 trainer = "Expert Pilates Instructor",
                 durationPerClass = 60,
                 validityPeriod = 90,
@@ -26,7 +26,7 @@ object SampleProjectData {
                     "Valid for 90 days"
                 )
             ),
-            Project(
+            Product(
                 id = "proj_002",
                 name = "Yoga Mastery - 16 Classes",
                 description = "Comprehensive yoga program for all levels. Enhance flexibility, reduce stress, and find inner peace through guided yoga sessions.",
@@ -34,7 +34,7 @@ object SampleProjectData {
                 price = 3200.00,
                 currency = "SAR",
                 numberOfClasses = 16,
-                category = ProjectCategory.YOGA,
+                category = ProductCategory.YOGA,
                 trainer = "Certified Yoga Master",
                 durationPerClass = 75,
                 validityPeriod = 60,
@@ -46,7 +46,7 @@ object SampleProjectData {
                     "Valid for 60 days"
                 )
             ),
-            Project(
+            Product(
                 id = "proj_003",
                 name = "Personal Training - 12 Sessions",
                 description = "Intensive personal training program tailored to your fitness goals. Work one-on-one with expert trainers to achieve remarkable results.",
@@ -54,7 +54,7 @@ object SampleProjectData {
                 price = 4500.00,
                 currency = "SAR",
                 numberOfClasses = 12,
-                category = ProjectCategory.PERSONAL_TRAINING,
+                category = ProductCategory.PERSONAL_TRAINING,
                 trainer = "Elite Personal Trainer",
                 durationPerClass = 60,
                 validityPeriod = 45,
@@ -66,7 +66,7 @@ object SampleProjectData {
                     "Valid for 45 days"
                 )
             ),
-            Project(
+            Product(
                 id = "proj_004",
                 name = "Group Training - 20 Classes",
                 description = "High-energy group training sessions that combine motivation, community, and effective workouts. Perfect for those who thrive in a group setting.",
@@ -74,7 +74,7 @@ object SampleProjectData {
                 price = 2800.00,
                 currency = "SAR",
                 numberOfClasses = 20,
-                category = ProjectCategory.GROUP_TRAINING,
+                category = ProductCategory.GROUP_TRAINING,
                 durationPerClass = 45,
                 validityPeriod = 60,
                 features = listOf(
@@ -85,7 +85,7 @@ object SampleProjectData {
                     "Valid for 60 days"
                 )
             ),
-            Project(
+            Product(
                 id = "proj_005",
                 name = "Nutrition & Wellness - 8 Sessions",
                 description = "Complete nutrition and wellness program with personalized meal plans and lifestyle coaching. Transform your health from the inside out.",
@@ -93,7 +93,7 @@ object SampleProjectData {
                 price = 3500.00,
                 currency = "SAR",
                 numberOfClasses = 8,
-                category = ProjectCategory.NUTRITION,
+                category = ProductCategory.NUTRITION,
                 trainer = "Certified Nutritionist",
                 durationPerClass = 45,
                 validityPeriod = 60,
@@ -105,7 +105,7 @@ object SampleProjectData {
                     "Valid for 60 days"
                 )
             ),
-            Project(
+            Product(
                 id = "proj_006",
                 name = "Advanced Pilates - 32 Classes",
                 description = "Extended Pilates program for serious practitioners. Build exceptional core strength and body control through advanced techniques.",
@@ -113,7 +113,7 @@ object SampleProjectData {
                 price = 7680.00,
                 currency = "SAR",
                 numberOfClasses = 32,
-                category = ProjectCategory.PILATES,
+                category = ProductCategory.PILATES,
                 trainer = "Master Pilates Instructor",
                 durationPerClass = 60,
                 validityPeriod = 120,
@@ -128,11 +128,11 @@ object SampleProjectData {
         )
     }
 
-    fun getProjectById(id: String): Project? {
-        return getProjects().find { it.id == id }
+    fun getProductById(id: String): Product? {
+        return getProducts().find { it.id == id }
     }
 
-    fun getProjectsByCategory(category: ProjectCategory): List<Project> {
-        return getProjects().filter { it.category == category }
+    fun getProductsByCategory(category: ProductCategory): List<Product> {
+        return getProducts().filter { it.category == category }
     }
 }
